@@ -1,5 +1,7 @@
 # MoviesBug
 
+A simple react native app that fetches data from tmdb api and displays it.
+pull down to refresh, swipe to the end to load more
 ## Usage
 
 - `yarn ios` -- (`expo run:ios`) Build the iOS App (requires a MacOS computer).
