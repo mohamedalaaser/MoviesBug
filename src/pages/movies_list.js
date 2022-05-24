@@ -1,4 +1,4 @@
-import { Text,SafeAreaView, FlatList,ActivityIndicator, Button, View } from 'react-native';
+import { Text,SafeAreaView, FlatList,ActivityIndicator, Button, View, StatusBar  } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import getMovies from '../services/tmdb_api';
 import MovieCard from '../components/movie_card';
@@ -66,29 +66,31 @@ export default function MoviesListPage() {
   },[]);
 
   return (
-    <SafeAreaView style={{flex: 1, alignItems:"center", justifyContent:"center"}}>
-        {
-        isError?(
-        <View>
-        <Text>Something went wrong</Text>
-        <Button
-        onPress={async ()=> await getMoviesFirstPage()}
-        title="Refresh"
-        />
-        </View>
-        ):
-        isLoading?<ActivityIndicator size="large"></ActivityIndicator>:
-      <FlatList
-        data={data}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({item}) => (<MovieCard item={item}/>)}
-        onEndReached={async () => page<totalPages && await getMorePages()}
-        ListFooterComponent={() => isLoadingMore && <ActivityIndicator size="large"></ActivityIndicator>}
-        onRefresh={async () => await refreshList()}
-        refreshing={isRefreshing}
-        />
-        }
-    </SafeAreaView>
+       <SafeAreaView style={{flex: 1, alignItems:"center", justifyContent:"center"}}>
+         
+      {
+      isError?(
+      <View>
+      <Text>Something went wrong</Text>
+      <Button
+      onPress={async ()=> await getMoviesFirstPage()}
+      title="Refresh"
+      />
+      </View>
+      ):
+      isLoading?<ActivityIndicator size="large"></ActivityIndicator>:
+    <FlatList
+      data={data}
+      keyExtractor={item => item.id.toString()}
+      renderItem={({item}) => (<MovieCard item={item}/>)}
+      onEndReached={async () => page<totalPages && await getMorePages()}
+      ListFooterComponent={() => isLoadingMore && <ActivityIndicator size="large"></ActivityIndicator>}
+      onRefresh={async () => await refreshList()}
+      refreshing={isRefreshing}
+      />
+      }
+  </SafeAreaView>
+
 
   );
 }
